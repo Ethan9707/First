@@ -135,7 +135,7 @@ def get_ciba():
     return note_ch, note_en
  
  
-def send_message(to_user, access_token, region_name, weather, temp, wind_dir,feelsLikes, weatherTxt, note_ch, note_en):
+def send_message(to_user, access_token, region_name, weather, temp, wind_dir,feelsLikes, weatherTxt, note_ch, note_en，place):
     url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token={}".format(access_token)
     week_list = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"]
     year = localtime().tm_year
@@ -200,6 +200,10 @@ def send_message(to_user, access_token, region_name, weather, temp, wind_dir,fee
             "note_ch": {
                 "value": note_ch,
                 "color": get_color()
+            },
+           "place": {
+                "value": place,
+                "color": get_color()
             }
         }
     }
@@ -257,6 +261,7 @@ if __name__ == "__main__":
         # 获取词霸每日金句
         note_ch, note_en = get_ciba()
     # 公众号推送消息
+    place = "重庆市"
     for user in users:
-        send_message(user, accessToken, region, weather, temp, wind_dir,feelsLikes, weatherTxt,note_ch, note_en)
+        send_message(user, accessToken, region, weather, temp, wind_dir,feelsLikes, weatherTxt,note_ch, note_en，place)
     os.system("pause")
